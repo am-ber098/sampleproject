@@ -1,0 +1,21 @@
+{% extends "nutrimind/layout.html" %}
+{% load static %}
+{% block title %}Index Page{% endblock %}
+
+{% block body %} <h1 class="mt-5">This is the index</h1>
+<div class="main-form">
+    <form id="profileForm" method="post" action="{% url 'index' %}">
+        {% csrf_token %}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn btn-success">Start Planning</button>
+    </form>
+    <div id="message"></div>  
+</div>
+</div>  
+
+<script>
+var indexUrl = "{% url 'index' %}";
+</script>
+<script src="{% static 'nutrimind/js/profile.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "nutrimind/layout.html" %}
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+<div class="container">
+    
+    <h2>Your Psychological Condition:</h2>
+    {% if psychological_condition %}
+        <p>{{ psychological_condition.name }}</p>
+        <input type="hidden" name="psychological_condition" value="{{ psychological_condition.id }}">
+    {% else %}
+        <p>No psychological condition selected.</p>
+    {% endif %}
+
+    <h2>Recommendations:</h2>
+    {% if recommendations %}
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>
+                    <strong>Psychological Condition:</strong> {{ recommendation.psychological_condition.name }} <br>
+                    <strong>Meal Plan:</strong> {{ recommendation.meal_plan }} <br>
+                    <strong>Yoga Exercises:</strong> {{ recommendation.yoga_exercises }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available for your selected condition.</p>
+    {% endif %}
+
+    <button id="saveProfileButton" class="btn btn-success">Save Your Plan</button>
+
+</div>
+
+<script>
+    document.getElementById('saveProfileButton').addEventListener('click', async function() {
+        const profileData = {
+            name: "{{ user_profile.name }}",
+            age: "{{ user_profile.age }}",
+            weight: "{{ user_profile.weight }}",
+            psychological_condition: document.querySelector('input[name="psychological_condition"]').value
+        };
+
+        const response = await fetch("{% url 'save_profile' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(profileData)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    });
+</script>
+</div>
+{% endblock %}

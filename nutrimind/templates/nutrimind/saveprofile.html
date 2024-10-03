@@ -1,0 +1,40 @@
+{% extends "nutrimind/layout.html" %}
+{% block title %}Saved Profile{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Your Saved Profile</h1>
+
+    {% if user_profile %}
+        <p>Name: {{ user_profile.name }}</p>
+        <p>Age: {{ user_profile.age }}</p>
+        <p>Weight: {{ user_profile.weight }}</p>
+
+        <h3>Psychological Conditions:</h3>
+        <ul>
+            {% for condition in user_profile.psychological_conditions.all %}
+                <li>{{ condition.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Recommendations:</h3>
+        {% if recommendations %}
+            <ul>
+                {% for recommendation in recommendations %}
+                    <li>
+                        <strong>Condition:</strong> {{ recommendation.psychological_condition.name }} <br>
+                        <strong>Meal Plan:</strong> {{ recommendation.meal_plan }} <br>
+                        <strong>Yoga Exercises:</strong> {{ recommendation.yoga_exercises }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No recommendations available for your selected conditions.</p>
+        {% endif %}
+    {% else %}
+        <p>No profile information available.</p>
+    {% endif %}
+
+    <a href="{% url 'index' %}" class="btn btn-success">Back to Profile</a>
+</div>
+{% endblock %}
