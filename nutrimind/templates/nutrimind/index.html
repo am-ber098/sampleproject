@@ -2,15 +2,21 @@
 {% load static %}
 {% block title %}Index Page{% endblock %}
 
-{% block body %} <h1 class="mt-5">This is the index</h1>
+{% block body %} <h1 class="planning">Start Planning Your Lifestyle With US!</h1>
+<div class="form-container">
+<div class="formbox">
 <div class="main-form">
     <form id="profileForm" method="post" action="{% url 'index' %}">
         {% csrf_token %}
+        <div class="form-group">
         {{ profile_form.as_p }}
-        <button type="submit" class="btn btn-success">Start Planning</button>
+        </div>
+        <button type="submit" class="btn btn-outline-secondary btn-lg">Start Planning</button>
     </form>
     <div id="message"></div>  
 </div>
+</div>  
+</div>  
 </div>  
 
 <script>

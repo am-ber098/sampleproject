@@ -11,18 +11,35 @@ import json
  
 
 def layout(request):
-    return render (request, "nutrimind/layout.html")
+    if request.user.is_authenticated:
+        return render(request, "nutrimind/loguser.html")
+    else:
+        return render(request, "nutrimind/loguser.html")
 
+def loguser_view(request):
+    if request.user.is_authenticated:
+        return render(request, "nutrimind/loguser.html", {
+            "message": "Welcome to Nutrimind Solutions!",
+        })
+    else:
+        return redirect("login")
 
 def saved_profile_view(request):
     if request.user.is_authenticated:
-        user_profile = UserProfile.objects.get(user=request.user)
-        psychological_condition = user_profile.psychological_condition
-        recommendations = Recommendation.objects.filter(psychological_condition=psychological_condition)
+        user_profile = UserProfile.objects.filter(user=request.user).first()
 
+        if user_profile:
+            psychological_condition = user_profile.psychological_condition
+            recommendations = Recommendation.objects.filter(psychological_condition=psychological_condition)
+
+            return render(request, 'nutrimind/saveprofile.html', {
+                'user_profile': user_profile,
+                'recommendations': recommendations,
+            })
+
+        # If no user profile exists
         return render(request, 'nutrimind/saveprofile.html', {
-            'user_profile': user_profile,
-            'recommendations': recommendations,
+            'user_profile': None,
         })
     else:
         return redirect('login')
@@ -47,6 +64,7 @@ def profile_view(request):
         'psychological_condition': psychological_condition,
         'recommendations': recommendations,
     })
+
 
 def index(request):
     user_profile, created = UserProfile.objects.get_or_create(
@@ -99,7 +117,7 @@ def login_view(request):
        
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("loguser"))
         else:
             return render(request, "nutrimind/login.html", {
                 "message": "Invalid username and/or password."

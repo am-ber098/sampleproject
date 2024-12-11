@@ -3,38 +3,42 @@
 
 {% block body %}
 <div class="container">
-    <h1>Your Saved Profile</h1>
+    <div class="psy-con">
+        <h1>Your Saved Profile</h1>
+    </div>
+    <div class="inner-con">
+        {% if user_profile %}
+            <p><strong>Name:</strong> {{ user_profile.name }}</p>
+            <p><strong>Age:</strong> {{ user_profile.age }}</p>
+            <p><strong>Weight:</strong> {{ user_profile.weight }}</p>
 
-    {% if user_profile %}
-        <p>Name: {{ user_profile.name }}</p>
-        <p>Age: {{ user_profile.age }}</p>
-        <p>Weight: {{ user_profile.weight }}</p>
+            <h3>Psychological Condition:</h3>
+            {% if user_profile.psychological_condition %}
+                <p>{{ user_profile.psychological_condition.name }}</p>
+            {% else %}
+                <p>No psychological condition saved.</p>
+            {% endif %}
 
-        <h3>Psychological Conditions:</h3>
-        <ul>
-            {% for condition in user_profile.psychological_conditions.all %}
-                <li>{{ condition.name }}</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Recommendations:</h3>
-        {% if recommendations %}
-            <ul>
-                {% for recommendation in recommendations %}
-                    <li>
-                        <strong>Condition:</strong> {{ recommendation.psychological_condition.name }} <br>
-                        <strong>Meal Plan:</strong> {{ recommendation.meal_plan }} <br>
-                        <strong>Yoga Exercises:</strong> {{ recommendation.yoga_exercises }}
-                    </li>
-                {% endfor %}
-            </ul>
+            <h3>Recommendations:</h3>
+            {% if recommendations %}
+                <ul>
+                    {% for recommendation in recommendations %}
+                        <li>
+                            <strong>Condition:</strong> {{ recommendation.psychological_condition.name }} <br>
+                            <strong>Meal Plan:</strong> {{ recommendation.meal_plan }} <br>
+                            <strong>Yoga Exercises:</strong> {{ recommendation.yoga_exercises }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You currently have no saved meal plans.</p>
+            {% endif %}
         {% else %}
-            <p>No recommendations available for your selected conditions.</p>
+            <p>No profile information available.</p>
         {% endif %}
-    {% else %}
-        <p>No profile information available.</p>
-    {% endif %}
-
-    <a href="{% url 'index' %}" class="btn btn-success">Back to Profile</a>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg">Back to Profile</a>
+    </div>
 </div>
 {% endblock %}

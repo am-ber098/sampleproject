@@ -1,7 +1,8 @@
 {% extends "nutrimind/layout.html" %}
 
 {% block body %}
-
+<div class="form-container">
+    <div class="formbox">
     <h2>Register</h2>
 
     {% if message %}
@@ -22,9 +23,9 @@
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <input class="btn btn-primary" type="submit" value="Register">
+        <input class="btn btn-outline-secondary btn-lg" type="submit" value="Register">
     </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    <br>
+    <span class="textspan"> Already have an account?  </span><span> <a href="{% url 'login' %}" class="reg">Log In here.</a><span>
 
 {% endblock %}

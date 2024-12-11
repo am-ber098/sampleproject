@@ -2,24 +2,27 @@
 {% block title %}User Profile{% endblock %}
 
 {% block body %}
-<div class="container">
+
     
-    <h2>Your Psychological Condition:</h2>
+<div class="container">
+    <div class="psy-con"><h1>Your Psychological Condition:</h1></div>
+    <div class="inner-con">
     {% if psychological_condition %}
-        <p>{{ psychological_condition.name }}</p>
+    
+        <h4>{{ psychological_condition.name }}</h4>
         <input type="hidden" name="psychological_condition" value="{{ psychological_condition.id }}">
     {% else %}
-        <p>No psychological condition selected.</p>
+      <p>No psychological condition selected.</p>
     {% endif %}
 
-    <h2>Recommendations:</h2>
+    <h1>Recommendations:</h1>
     {% if recommendations %}
         <ul>
             {% for recommendation in recommendations %}
                 <li>
-                    <strong>Psychological Condition:</strong> {{ recommendation.psychological_condition.name }} <br>
-                    <strong>Meal Plan:</strong> {{ recommendation.meal_plan }} <br>
-                    <strong>Yoga Exercises:</strong> {{ recommendation.yoga_exercises }}
+                    <h5>Psychological Condition:</h5> {{ recommendation.psychological_condition.name }} <br>
+                    <h5>Meal Plan:</h5> {{ recommendation.meal_plan }} <br>
+                    <h5>Yoga Exercises:</h5> {{ recommendation.yoga_exercises }}
                 </li>
             {% endfor %}
         </ul>
@@ -27,8 +30,8 @@
         <p>No recommendations available for your selected condition.</p>
     {% endif %}
 
-    <button id="saveProfileButton" class="btn btn-success">Save Your Plan</button>
-
+    <span><button id="saveProfileButton" class="btn btn-outline-secondary btn-lg">Save Your Plan</button></span>
+    </div>
 </div>
 
 <script>

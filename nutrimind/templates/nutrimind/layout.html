@@ -3,103 +3,106 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Social Nutrimind{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'nutrimind/css/style.css' %}" rel="stylesheet">
-    </head>
-    <body>
-
-        <nav class="nav-bar">
-            <a  href='layout'>Layout</a>
-            <div>
-              <ul>
-                {% if user.is_authenticated %}
-                    <li>
-                        <a class="nav-link" href="{% url 'index' %}">Start Planning</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
-                    </li>
-                {% endif %}
-                <li>
-                    <a class="nav-link" href="{% url 'save_profile' %}"> Your Meal Plan</a> 
-                </li>
-                {% if user.is_authenticated %}
-                    <li>
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                {% endif %}
-              </ul>
-            </div>
-          </nav>
-        
-        <div class="body">
-            {% block body %}
-            {% endblock %}
-        </div>
-    </body>
-</html>
-
-<!--
-"now this code which i added to the comment is where i used bootstrao class and these classes works properly but the above code is where i want to add css manually if u want to run code first delete this comment portion other wise it wont run properly"
-
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
         <title>{% block title %}Social nutrimind{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="{% static 'nutrimind/styles.css' %}" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     </head>
     <body>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Layout</a>
-          
-            <div>
-              <ul class="navbar-nav mr-auto">
+<div>
+        <nav>
+             
+                
+              <ul class="sidebar">
+                <li class="sidebar-header">
+                    <a href="#" onclick="hideSidebar()" aria-label="Close Menu" class="close-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#00">
+                        <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="nav-link" href="{% url 'loguser' %}">Home</a>
+                </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
-                   
+                
+                
+                  <li>
+                    <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                </li>
+                   <li>
                     <a class="nav-link" href="{% url 'index' %}">Start Planning</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
-                    </li>
+                    
                 {% endif %}
-                <li class="nav-item">
+                <li>
                     <a class="nav-link" href="{% url 'save_profile' %}">Your Meal Plan</a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item">
+                    <li>
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                 {% else %}
-                    <li class="nav-item">
+                    <li>
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
                     </li>
-                    <li class="nav-item">
+                    <li>
                         <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
               </ul>
-            </div>
+              <ul>
+                <li>
+                    <a class="nav-link" href="{% url 'loguser' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="hideonmobile">
+                        <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
+                    </li>
+                    
+                    <li class="hideonmobile">
+                      <a class="nav-link" href="{% url 'index' %}">Start Planning</a>
+                    </li>
+                {% endif %}
+                <li class="hideonmobile">
+                    <a class="nav-link" href="{% url 'save_profile' %}">Your Meal Plan</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="hideonmobile">
+                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="hideonmobile">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="hideonmobile">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                   
+                {% endif %}
+                
+                <li onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
+              </ul>
+              
+            
           </nav>
+        </div>
         <div class="body">
             {% block body %}
             {% endblock %}
         </div>
+        <script>
+          function showSidebar() {
+              const sidebar = document.querySelector('.sidebar');
+              sidebar.style.display='flex'
+            }
+            function hideSidebar() {
+              const sidebar = document.querySelector('.sidebar');
+              sidebar.style.display='none'
+            }
+            
+        </script>
     </body>
 </html>
-
--->
-
-
