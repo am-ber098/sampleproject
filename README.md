@@ -79,3 +79,5 @@ Install my-project
 ## Demo
 ![image alt](https://github.com/am-ber098/sampleproject/blob/master/Screenshot%202024-12-11%20at%2019-14-34%20Social%20nutrimind.png?raw=true)
 ![image alt](https://github.com/am-ber098/sampleproject/blob/master/Screenshot%202024-12-11%20at%2019-17-11%20Social%20nutrimind.png?raw=true)
+![image alt](https://github.com/am-ber098/sampleproject/blob/master/Screenshot%202024-12-11%20at%2019-18-11%20Saved%20Profile.png?raw=true)
+![image alt](https://github.com/am-ber098/sampleproject/blob/master/Screenshot%202024-12-11%20at%2019-17-52%20Index%20Page.png?raw=true)
